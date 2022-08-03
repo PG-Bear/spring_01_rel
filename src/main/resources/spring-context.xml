@@ -56,9 +56,9 @@
         </property>
         <property name="map">
             <map>
-                <entry key="country" value="中国"/>
-                <entry key="province" value="台湾省"/>
-                <entry key="city" value="台北市"/>
+                <entry key="country" value="${country}"/>
+                <entry key="province" value="${province}"/>
+                <entry key="city" value="${city}"/>
             </map>
         </property>
 
