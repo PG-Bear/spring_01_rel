@@ -1,11 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+">
 
+
+    <!--    加载外部资源文件    -->
+    <!--    location: 资源文件相对位置    -->
+    <context:property-placeholder location="my.properties"/>
+
+    <!--    bean: 定义一个bean, 让IoC管理    -->
+    <!--    id: 唯一性,不可设置两个id相同的Bean    -->
+    <!--    class: 指定哪个类需交给IoC容器管理    -->
+    <!--    autowire: 自动装配    -->
+    <!--    scope: 范围设置,单列(singleton)或多列(prototype)(注:默认singleton)    -->
+    <!--    name: 给Bean起别名, 但要起多个别名时, 用逗号, 空格或分号隔开    -->
+    <!--    init-method: 给Bean设置初始化函数, 当Bean被创建初始化后, 自动调用指定初始化函数(注:是在Bean调用构造函数后)    -->
+    <!--    destroy-method: 当Bean即将被销毁时, 调用指定函数做销毁前处理    -->
+    <!--    lazy-init: 设置Bean的创建, 延迟或立刻创建    -->
     <bean id="userDao" class="icu.insomniac.dao.impl.UserDaoImpl"/>
     <bean id="userService" class="icu.insomniac.service.impl.UserServiceImpl">
+        <!--    property: 通过setter来注入, 给属性赋值    -->
+        <!--    name: 该Bean的属性名    -->
+        <!--    ref: 被引用Bean的id, 用于引用类型的注入    -->
+        <!--    value: 可通过${name}或者直接写值的方式赋值, ${name}表示从外部资源文件获取变量名为name的值. 用于基础类型的注入    -->
         <property name="userDao" ref="userDao"/>
+        <!--    集合的注入    -->
+        <!--    list: 给list集合注入    -->
+        <!--    以此类推有array, map, set    -->
+        <property name="array">
+            <array>
+                <value type="int">1</value>
+                <value type="int">2</value>
+                <value type="int">3</value>
+            </array>
+        </property>
+        <property name="list">
+            <list>
+                <value type="java.lang.String">中国</value>
+                <value type="java.lang.String">台湾省</value>
+                <value type="java.lang.String">台北市</value>
+            </list>
+        </property>
+        <property name="set">
+            <set>
+                <value type="java.lang.String">中国</value>
+                <value type="java.lang.String">台湾省</value>
+                <value type="java.lang.String">台北市</value>
+            </set>
+        </property>
+        <property name="map">
+            <map>
+                <entry key="country" value="中国"/>
+                <entry key="province" value="台湾省"/>
+                <entry key="city" value="台北市"/>
+            </map>
+        </property>
+
+    </bean>
+
+    <bean id="jdbcTest" class="icu.insomniac.utils.JdbcTest">
+        <property name="driver" value="${jdbc.driver}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
     </bean>
 
 </beans>
