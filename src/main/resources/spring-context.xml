@@ -12,7 +12,7 @@
 
     <!--    加载外部资源文件    -->
     <!--    location: 资源文件相对位置    -->
-    <context:property-placeholder location="my.properties"/>
+    <context:property-placeholder location="classpath:*.properties"/>
 
     <!--    bean: 定义一个bean, 让IoC管理    -->
     <!--    id: 唯一性,不可设置两个id相同的Bean    -->
